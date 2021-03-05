@@ -1,4 +1,5 @@
 import Searcher from "../ui/Searcher";
+import Nav from "./Nav";
 
 const Header = () => {
     return (
@@ -9,7 +10,7 @@ const Header = () => {
 
                     <Searcher />
 
-                    {/* Nav here */}
+                    <Nav />
                 </div>
                 <div>{/* Administration Menu here */}</div>
             </div>
