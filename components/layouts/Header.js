@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import Button from "../ui/Button";
 import Searcher from "../ui/Searcher";
 import Nav from "./Nav";
 
@@ -27,11 +28,25 @@ const Logo = styled.p`
     margin-right: 2rem;
 `;
 
+const UserNameContainer = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const UserName = styled.p`
+    margin-right: 2rem;
+`;
+
+const Separator = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
 const Header = () => {
     return (
         <Heading>
             <HeaderContainer>
-                <div>
+                <Separator>
                     <Link href="/">
                         <Logo>P</Logo>
                     </Link>
@@ -39,13 +54,17 @@ const Header = () => {
                     <Searcher />
 
                     <Nav />
-                </div>
-                <div>
-                    <p>Hey there, Diego!</p>
-                    <button>Log out</button>
-                    <Link href="/">Login</Link>
-                    <Link href="/">Create Account</Link>
-                </div>
+                </Separator>
+                <UserNameContainer>
+                    <UserName>Hey there, Diego!</UserName>
+                    <Button bgColor="#da552f">Log out</Button>
+                    <Link href="/">
+                        <Button bgColor="#da552f">Login</Button>
+                    </Link>
+                    <Link href="/">
+                        <Button>Sign Up</Button>
+                    </Link>
+                </UserNameContainer>
             </HeaderContainer>
         </Heading>
     );
