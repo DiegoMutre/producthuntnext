@@ -58,10 +58,10 @@ const Header = () => {
                 <UserNameContainer>
                     <UserName>Hey there, Diego!</UserName>
                     <Button bgColor="#da552f">Log out</Button>
-                    <Link href="/">
+                    <Link href="/login">
                         <Button bgColor="#da552f">Login</Button>
                     </Link>
-                    <Link href="/">
+                    <Link href="/create-account">
                         <Button>Sign Up</Button>
                     </Link>
                 </UserNameContainer>
