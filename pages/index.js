@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Layout from "../components/layouts/layout";
 
 export default function Home() {
