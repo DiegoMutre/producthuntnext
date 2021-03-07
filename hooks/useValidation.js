@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useValidation = (initialState, validation, callback) => {
+const useValidation = (initialState, validate, callback) => {
     const [values, setValues] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [submitForm, setSubmitForm] = useState(false);
@@ -15,6 +15,28 @@ const useValidation = (initialState, validation, callback) => {
             setSubmitForm(false);
         }
     }, [submitForm]);
+
+    const handleChange = e => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        const validationErrors = validate(errors);
+        setErrors(validationErrors);
+        setSubmitForm(true);
+    };
+
+    return {
+        values,
+        errors,
+        submitForm,
+        handleChange,
+        handleSubmit,
+    };
 };
 
 export default useValidation;
