@@ -1,5 +1,5 @@
 import Layout from "../components/layouts/layout";
-import { Form } from "../components/ui/Form";
+import { Field, Form } from "../components/ui/Form";
 
 const CreateAccount = () => {
     return (
@@ -7,7 +7,7 @@ const CreateAccount = () => {
             <Layout>
                 <h1>Create Account</h1>
                 <Form>
-                    <div>
+                    <Field>
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
@@ -15,8 +15,8 @@ const CreateAccount = () => {
                             id="username"
                             placeholder="Your name"
                         />
-                    </div>
-                    <div>
+                    </Field>
+                    <Field>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -24,8 +24,8 @@ const CreateAccount = () => {
                             id="email"
                             placeholder="Your email"
                         />
-                    </div>
-                    <div>
+                    </Field>
+                    <Field>
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
@@ -33,7 +33,7 @@ const CreateAccount = () => {
                             id="password"
                             placeholder="Your password"
                         />
-                    </div>
+                    </Field>
                     <input type="submit" value="Create Account" />
                 </Form>
             </Layout>
