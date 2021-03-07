@@ -1,13 +1,34 @@
 import styled from "styled-components";
 import Layout from "../components/layouts/layout";
 import { Field, Form, InputSubmit } from "../components/ui/Form";
+import useValidation from "../hooks/useValidation";
+import validateCreateAccount from "../validation/validateCreateAccount";
 
 const CreateAccountHeading = styled.h1`
     text-align: center;
     margin-top: 5rem;
 `;
 
+const initialState = {
+    username: "",
+    email: "",
+    password: "",
+};
+
 const CreateAccount = () => {
+    const {
+        values,
+        errors,
+        submitForm,
+        handleChange,
+        handleSubmit,
+    } = useValidation(initialState, validateCreateAccount, createAccount);
+
+    // * Only for test
+    function createAccount() {
+        console.log("Creating account...");
+    }
+
     return (
         <>
             <Layout>
