@@ -1,11 +1,17 @@
+import styled from "styled-components";
 import Layout from "../components/layouts/layout";
 import { Field, Form, InputSubmit } from "../components/ui/Form";
+
+const CreateAccountHeading = styled.h1`
+    text-align: center;
+    margin-top: 5rem;
+`;
 
 const CreateAccount = () => {
     return (
         <>
             <Layout>
-                <h1>Create Account</h1>
+                <CreateAccountHeading>Create Account</CreateAccountHeading>
                 <Form>
                     <Field>
                         <label htmlFor="username">Username</label>
