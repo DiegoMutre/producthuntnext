@@ -1,5 +1,5 @@
 import Layout from "../components/layouts/layout";
-import { Field, Form } from "../components/ui/Form";
+import { Field, Form, InputSubmit } from "../components/ui/Form";
 
 const CreateAccount = () => {
     return (
@@ -34,7 +34,7 @@ const CreateAccount = () => {
                             placeholder="Your password"
                         />
                     </Field>
-                    <input type="submit" value="Create Account" />
+                    <InputSubmit type="submit" value="Create Account" />
                 </Form>
             </Layout>
         </>
