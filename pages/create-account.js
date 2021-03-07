@@ -1,11 +1,12 @@
 import Layout from "../components/layouts/layout";
+import { Form } from "../components/ui/Form";
 
 const CreateAccount = () => {
     return (
         <>
             <Layout>
                 <h1>Create Account</h1>
-                <form>
+                <Form>
                     <div>
                         <label htmlFor="username">Username</label>
                         <input
@@ -34,7 +35,7 @@ const CreateAccount = () => {
                         />
                     </div>
                     <input type="submit" value="Create Account" />
-                </form>
+                </Form>
             </Layout>
         </>
     );
