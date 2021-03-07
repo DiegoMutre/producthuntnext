@@ -29,11 +29,13 @@ const CreateAccount = () => {
         console.log("Creating account...");
     }
 
+    const { username, email, password } = values;
+
     return (
         <>
             <Layout>
                 <CreateAccountHeading>Create Account</CreateAccountHeading>
-                <Form>
+                <Form onSubmit={handleSubmit} noValidate>
                     <Field>
                         <label htmlFor="username">Username</label>
                         <input
@@ -41,6 +43,8 @@ const CreateAccount = () => {
                             name="username"
                             id="username"
                             placeholder="Your name"
+                            value={username}
+                            onChange={handleChange}
                         />
                     </Field>
                     <Field>
@@ -50,6 +54,8 @@ const CreateAccount = () => {
                             name="email"
                             id="email"
                             placeholder="Your email"
+                            value={email}
+                            onChange={handleChange}
                         />
                     </Field>
                     <Field>
@@ -59,6 +65,8 @@ const CreateAccount = () => {
                             name="password"
                             id="password"
                             placeholder="Your password"
+                            value={password}
+                            onChange={handleChange}
                         />
                     </Field>
                     <InputSubmit type="submit" value="Create Account" />
