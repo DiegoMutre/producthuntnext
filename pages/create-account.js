@@ -3,6 +3,7 @@ import Layout from "../components/layouts/layout";
 import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
 import validateCreateAccount from "../validation/validateCreateAccount";
+import firebase from "../firebase";
 
 const CreateAccountHeading = styled.h1`
     text-align: center;
@@ -25,8 +26,12 @@ const CreateAccount = () => {
     } = useValidation(initialState, validateCreateAccount, createAccount);
 
     // * Only for test
-    function createAccount() {
-        console.log("Creating account...");
+    async function createAccount() {
+        try {
+            await firebase.register(username, email, password);
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     const { username, email, password } = values;
