@@ -31,8 +31,13 @@ const Login = () => {
 
     const { email, password } = values;
 
-    function login() {
-        console.log("Login...");
+    async function login() {
+        try {
+            await firebase.login(email, password);
+            router.push("/");
+        } catch (error) {
+            setError(error.message);
+        }
     }
 
     return (
