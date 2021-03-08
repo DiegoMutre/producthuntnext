@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useContext } from "react";
 import styled from "styled-components";
+import { FirebaseContext } from "../../firebase";
 import Button from "../ui/Button";
 import Searcher from "../ui/Searcher";
 import Nav from "./Nav";
@@ -43,6 +45,8 @@ const Separator = styled.div`
 `;
 
 const Header = () => {
+    const { user } = useContext(FirebaseContext);
+
     return (
         <Heading>
             <HeaderContainer>
@@ -56,14 +60,21 @@ const Header = () => {
                     <Nav />
                 </Separator>
                 <UserNameContainer>
-                    <UserName>Hey there, Diego!</UserName>
-                    <Button bgColor="#da552f">Log out</Button>
-                    <Link href="/login">
-                        <Button bgColor="#da552f">Login</Button>
-                    </Link>
-                    <Link href="/create-account">
-                        <Button>Sign Up</Button>
-                    </Link>
+                    {user ? (
+                        <>
+                            <UserName>Hey there, {user.displayName}!</UserName>
+                            <Button bgColor="#da552f">Log out</Button>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <Button bgColor="#da552f">Login</Button>
+                            </Link>
+                            <Link href="/create-account">
+                                <Button>Sign Up</Button>
+                            </Link>
+                        </>
+                    )}
                 </UserNameContainer>
             </HeaderContainer>
         </Heading>
