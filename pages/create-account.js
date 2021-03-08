@@ -5,6 +5,7 @@ import useValidation from "../hooks/useValidation";
 import validateCreateAccount from "../validation/validateCreateAccount";
 import firebase from "../firebase";
 import { useState } from "react";
+import router from "next/router";
 
 const CreateAccountHeading = styled.h1`
     text-align: center;
@@ -28,10 +29,10 @@ const CreateAccount = () => {
         handleBlur,
     } = useValidation(initialState, validateCreateAccount, createAccount);
 
-    // * Only for test
     async function createAccount() {
         try {
             await firebase.register(username, email, password);
+            router.push("/");
         } catch (error) {
             setError(error.message);
         }
