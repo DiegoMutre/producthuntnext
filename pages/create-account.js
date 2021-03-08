@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Layout from "../components/layouts/layout";
-import { Field, Form, InputSubmit } from "../components/ui/Form";
+import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
 import validateCreateAccount from "../validation/validateCreateAccount";
 
@@ -16,13 +16,11 @@ const initialState = {
 };
 
 const CreateAccount = () => {
-    const {
-        values,
-        errors,
-        submitForm,
-        handleChange,
-        handleSubmit,
-    } = useValidation(initialState, validateCreateAccount, createAccount);
+    const { values, errors, handleChange, handleSubmit } = useValidation(
+        initialState,
+        validateCreateAccount,
+        createAccount
+    );
 
     // * Only for test
     function createAccount() {
@@ -47,6 +45,7 @@ const CreateAccount = () => {
                             onChange={handleChange}
                         />
                     </Field>
+                    {errors.username && <Error>{errors.username}</Error>}
                     <Field>
                         <label htmlFor="email">Email</label>
                         <input
@@ -58,6 +57,7 @@ const CreateAccount = () => {
                             onChange={handleChange}
                         />
                     </Field>
+                    {errors.email && <Error>{errors.email}</Error>}
                     <Field>
                         <label htmlFor="password">Password</label>
                         <input
@@ -69,6 +69,7 @@ const CreateAccount = () => {
                             onChange={handleChange}
                         />
                     </Field>
+                    {errors.password && <Error>{errors.password}</Error>}
                     <InputSubmit type="submit" value="Create Account" />
                 </Form>
             </Layout>
