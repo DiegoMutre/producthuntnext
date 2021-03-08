@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Layout from "../components/layouts/layout";
 import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
-import validateCreateAccount from "../validation/validateCreateAccount";
+import validateProduct from "../validation/validateProduct";
 import firebase from "../firebase";
 import { useState } from "react";
 import router from "next/router";
@@ -15,7 +15,7 @@ const NewProductHeading = styled.h1`
 const initialState = {
     name: "",
     company: "",
-    image: "",
+    // image: "",
     url: "",
     description: "",
 };
@@ -29,13 +29,13 @@ const NewProduct = () => {
         handleChange,
         handleSubmit,
         handleBlur,
-    } = useValidation(initialState, validateCreateAccount, createProduct);
+    } = useValidation(initialState, validateProduct, createProduct);
 
     function createProduct() {
         console.log("Creating product...");
     }
 
-    const { name, company, image, url, description } = values;
+    const { name, company, url, description } = values;
 
     return (
         <>
@@ -72,7 +72,7 @@ const NewProduct = () => {
                         </Field>
                         {errors.company && <Error>{errors.company}</Error>}
 
-                        <Field>
+                        {/* <Field>
                             <label htmlFor="image">Image</label>
                             <input
                                 type="file"
@@ -82,8 +82,8 @@ const NewProduct = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                        </Field>
-                        {errors.image && <Error>{errors.image}</Error>}
+                        </Field> 
+                         {errors.image && <Error>{errors.image}</Error>} */}
 
                         <Field>
                             <label htmlFor="url">URL</label>
@@ -91,6 +91,7 @@ const NewProduct = () => {
                                 type="url"
                                 name="url"
                                 id="url"
+                                placeholder="Your url"
                                 value={url}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
