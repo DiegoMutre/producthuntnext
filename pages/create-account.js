@@ -4,6 +4,7 @@ import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
 import validateCreateAccount from "../validation/validateCreateAccount";
 import firebase from "../firebase";
+import { useState } from "react";
 
 const CreateAccountHeading = styled.h1`
     text-align: center;
@@ -17,6 +18,8 @@ const initialState = {
 };
 
 const CreateAccount = () => {
+    const [error, setError] = useState("");
+
     const {
         values,
         errors,
@@ -30,7 +33,7 @@ const CreateAccount = () => {
         try {
             await firebase.register(username, email, password);
         } catch (error) {
-            console.error(error.message);
+            setError(error.message);
         }
     }
 
@@ -80,6 +83,7 @@ const CreateAccount = () => {
                         />
                     </Field>
                     {errors.password && <Error>{errors.password}</Error>}
+                    {error && <Error>{error}</Error>}
                     <InputSubmit type="submit" value="Create Account" />
                 </Form>
             </Layout>
