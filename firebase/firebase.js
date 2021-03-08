@@ -20,6 +20,10 @@ class Firebase {
             displayName: username,
         });
     }
+
+    async login(email, password) {
+        return await this.auth.signInWithEmailAndPassword(email, password);
+    }
 }
 
 const firebase = new Firebase();
