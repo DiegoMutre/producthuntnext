@@ -16,11 +16,13 @@ const initialState = {
 };
 
 const CreateAccount = () => {
-    const { values, errors, handleChange, handleSubmit } = useValidation(
-        initialState,
-        validateCreateAccount,
-        createAccount
-    );
+    const {
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+        handleBlur,
+    } = useValidation(initialState, validateCreateAccount, createAccount);
 
     // * Only for test
     function createAccount() {
@@ -43,6 +45,7 @@ const CreateAccount = () => {
                             placeholder="Your name"
                             value={username}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </Field>
                     {errors.username && <Error>{errors.username}</Error>}
@@ -55,6 +58,7 @@ const CreateAccount = () => {
                             placeholder="Your email"
                             value={email}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </Field>
                     {errors.email && <Error>{errors.email}</Error>}
@@ -67,6 +71,7 @@ const CreateAccount = () => {
                             placeholder="Your password"
                             value={password}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </Field>
                     {errors.password && <Error>{errors.password}</Error>}
