@@ -45,7 +45,11 @@ const Separator = styled.div`
 `;
 
 const Header = () => {
-    const { user } = useContext(FirebaseContext);
+    const { user, firebase } = useContext(FirebaseContext);
+
+    const signOut = () => {
+        firebase.logout();
+    };
 
     return (
         <Heading>
@@ -63,7 +67,9 @@ const Header = () => {
                     {user ? (
                         <>
                             <UserName>Hey there, {user.displayName}!</UserName>
-                            <Button bgColor="#da552f">Log out</Button>
+                            <Button bgColor="#da552f" onClick={signOut}>
+                                Log out
+                            </Button>
                         </>
                     ) : (
                         <>
