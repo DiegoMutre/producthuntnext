@@ -3,9 +3,9 @@ import Layout from "../components/layouts/layout";
 import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
 import validateProduct from "../validation/validateProduct";
-import firebase from "../firebase";
-import { useState } from "react";
-import router from "next/router";
+import firebase, { FirebaseContext } from "../firebase";
+import { useContext, useState } from "react";
+import { useRouter } from "next/router";
 
 const NewProductHeading = styled.h1`
     text-align: center;
@@ -31,8 +31,14 @@ const NewProduct = () => {
         handleBlur,
     } = useValidation(initialState, validateProduct, createProduct);
 
+    const { user } = useContext(FirebaseContext);
+
+    const router = useRouter();
+
     function createProduct() {
-        console.log("Creating product...");
+        if (!user) {
+            return router.push("/login");
+        }
     }
 
     const { name, company, url, description } = values;
