@@ -6,6 +6,7 @@ import validateProduct from "../validation/validateProduct";
 import firebase, { FirebaseContext } from "../firebase";
 import { useContext, useState } from "react";
 import { useRouter } from "next/router";
+import FileUploader from "react-firebase-file-uploader";
 
 const NewProductHeading = styled.h1`
     text-align: center;
@@ -21,6 +22,11 @@ const initialState = {
 };
 
 const NewProduct = () => {
+    const [imageName, setImageName] = useState("");
+    const [upload, setUpload] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [imageUrl, setImageUrl] = useState("");
+
     const [error, setError] = useState("");
 
     const {
@@ -44,6 +50,7 @@ const NewProduct = () => {
             name,
             company,
             url,
+            imageUrl,
             description,
             votes: 0,
             comments: [],
@@ -52,6 +59,32 @@ const NewProduct = () => {
 
         firebase.db.collection("products").add(product);
     }
+
+    const handleUploadStart = () => {
+        setProgress(0);
+        setUpload(true);
+    };
+
+    const handleUploadProgress = progress => setProgress({ progress });
+
+    const handleUploadError = error => {
+        setUpload(error);
+        console.error(error);
+    };
+
+    const handleUploadSuccess = name => {
+        setProgress(100);
+        setUpload(false);
+        setImageName(name);
+        firebase.storage
+            .ref("products")
+            .child(name)
+            .getDownloadURL()
+            .then(downloadURL => {
+                console.log(downloadURL);
+                setImageUrl(downloadURL);
+            });
+    };
 
     const { name, company, url, description } = values;
 
@@ -90,18 +123,20 @@ const NewProduct = () => {
                         </Field>
                         {errors.company && <Error>{errors.company}</Error>}
 
-                        {/* <Field>
+                        <Field>
                             <label htmlFor="image">Image</label>
-                            <input
-                                type="file"
+                            <FileUploader
                                 name="image"
                                 id="image"
-                                value={image}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                accept="image/*"
+                                randomizeFilename
+                                storageRef={firebase.storage.ref("products")}
+                                onUploadStart={handleUploadStart}
+                                onUploadError={handleUploadError}
+                                onUploadSuccess={handleUploadSuccess}
+                                onProgress={handleUploadProgress}
                             />
-                        </Field> 
-                         {errors.image && <Error>{errors.image}</Error>} */}
+                        </Field>
 
                         <Field>
                             <label htmlFor="url">URL</label>
