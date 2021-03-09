@@ -58,6 +58,8 @@ const NewProduct = () => {
         };
 
         firebase.db.collection("products").add(product);
+
+        return router.push("/");
     }
 
     const handleUploadStart = () => {
@@ -69,7 +71,6 @@ const NewProduct = () => {
 
     const handleUploadError = error => {
         setUpload(error);
-        console.error(error);
     };
 
     const handleUploadSuccess = name => {
@@ -81,7 +82,6 @@ const NewProduct = () => {
             .child(name)
             .getDownloadURL()
             .then(downloadURL => {
-                console.log(downloadURL);
                 setImageUrl(downloadURL);
             });
     };
