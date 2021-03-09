@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/Layout";
 import ProductDetails from "../components/layouts/ProductDetails";
 import firebase from "../firebase";
 

@@ -48,7 +48,7 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-const layout = props => {
+const Layout = props => {
     return (
         <>
             <GlobalStyle />
@@ -72,4 +72,4 @@ const layout = props => {
     );
 };
 
-export default layout;
+export default Layout;

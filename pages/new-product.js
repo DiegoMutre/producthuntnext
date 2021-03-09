@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/Layout";
 import { Error, Field, Form, InputSubmit } from "../components/ui/Form";
 import useValidation from "../hooks/useValidation";
 import validateProduct from "../validation/validateProduct";

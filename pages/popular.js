@@ -1,4 +1,4 @@
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/Layout";
 
 const Popular = () => {
     return (
