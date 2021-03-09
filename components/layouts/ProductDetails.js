@@ -88,11 +88,9 @@ const ProductDetails = ({ product }) => {
         id,
         comments,
         description,
-        url,
         votes,
         name,
         created,
-        company,
         imageUrl,
     } = product;
 
@@ -103,7 +101,9 @@ const ProductDetails = ({ product }) => {
                     <Image src={imageUrl} alt={name} />
                 </div>
                 <div>
-                    <Title href="#">{name}</Title>
+                    <Link href="/products/[id]" as={`/products/${id}`}>
+                        <Title href="#">{name}</Title>
+                    </Link>
                     <TextDescription>{description}</TextDescription>
                     <Comments>
                         <div>
