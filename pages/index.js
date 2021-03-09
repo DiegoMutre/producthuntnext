@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Layout from "../components/layouts/layout";
+import ProductDetails from "../components/layouts/ProductDetails";
 import firebase from "../firebase";
 
 export default function Home() {
@@ -30,7 +31,18 @@ export default function Home() {
     return (
         <>
             <Layout>
-                <h1>Init</h1>
+                <div className="products-list">
+                    <div className="container">
+                        <ul className="bg-white">
+                            {products.map(product => (
+                                <ProductDetails
+                                    key={product.id}
+                                    product={product}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </Layout>
         </>
     );
