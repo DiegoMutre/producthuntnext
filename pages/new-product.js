@@ -39,6 +39,18 @@ const NewProduct = () => {
         if (!user) {
             return router.push("/login");
         }
+
+        const product = {
+            name,
+            company,
+            url,
+            description,
+            votes: 0,
+            comments: [],
+            created: Date.now(),
+        };
+
+        firebase.db.collection("products").add(product);
     }
 
     const { name, company, url, description } = values;
