@@ -61,23 +61,6 @@ const Product = () => {
         return "Loading...";
     }
 
-    const voteProduct = () => {
-        if (!user) {
-            return router.push("/login");
-        }
-
-        const newTotal = votes + 1;
-
-        // TODO: Avoid duplicated votes
-
-        firebase.db.collection("products").doc(id).update({ votes: newTotal });
-
-        setProduct({
-            ...product,
-            votes: newTotal,
-        });
-    };
-
     const {
         comments,
         description,
@@ -88,7 +71,32 @@ const Product = () => {
         url,
         company,
         creator,
+        voters,
     } = product;
+
+    const voteProduct = () => {
+        if (!user) {
+            return router.push("/login");
+        }
+
+        if (voters.includes(user.uid)) {
+            return;
+        }
+
+        const newVoters = [...voters, user.uid];
+        const newTotal = votes + 1;
+
+        firebase.db
+            .collection("products")
+            .doc(id)
+            .update({ votes: newTotal, voters: newVoters });
+
+        setProduct({
+            ...product,
+            votes: newTotal,
+            voters: newVoters,
+        });
+    };
 
     return (
         <Layout>
