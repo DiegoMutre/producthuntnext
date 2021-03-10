@@ -29,9 +29,19 @@ const Votes = styled.p`
     text-align: center;
 `;
 
+const Comment = styled.li`
+    border: 1px solid #e1e1e1;
+    padding: 2rem;
+
+    span {
+        font-weight: bold;
+    }
+`;
+
 const Product = () => {
     const [product, setProduct] = useState({});
     const [error, setError] = useState(false);
+    const [comment, setComment] = useState({});
 
     const { user } = useContext(FirebaseContext);
 
@@ -98,6 +108,36 @@ const Product = () => {
         });
     };
 
+    const handleChange = e => {
+        setComment({ ...comment, [e.target.name]: e.target.value });
+    };
+
+    const addComment = e => {
+        e.preventDefault();
+
+        if (!user) {
+            return router.push("/login");
+        }
+
+        const newComment = {
+            ...comment,
+            userId: user.uid,
+            username: user.displayName,
+        };
+
+        const newComments = [...comments, newComment];
+
+        firebase.db
+            .collection("products")
+            .doc(id)
+            .update({ comments: newComments });
+
+        setProduct({
+            ...product,
+            comments: newComments,
+        });
+    };
+
     return (
         <Layout>
             <>{error && <Error404 />}</>
@@ -114,9 +154,13 @@ const Product = () => {
                         {user && (
                             <>
                                 <h2>Add your comment</h2>
-                                <form>
+                                <form onSubmit={addComment}>
                                     <Field>
-                                        <input type="text" name="message" />
+                                        <input
+                                            type="text"
+                                            name="message"
+                                            onChange={handleChange}
+                                        />
                                     </Field>
                                     <InputSubmit
                                         type="submit"
@@ -126,12 +170,21 @@ const Product = () => {
                             </>
                         )}
                         <CommentHeading>Comments</CommentHeading>
-                        {comments.map((comment, i) => (
-                            <li key={i}>
-                                <p>{comment.name}</p>
-                                <p>Written by {comment.username}</p>
-                            </li>
-                        ))}
+                        {comments.length === 0 ? (
+                            "There are no comments"
+                        ) : (
+                            <ul>
+                                {comments.map((comment, i) => (
+                                    <Comment key={i}>
+                                        <p>{comment.message}</p>
+                                        <p>
+                                            Written by
+                                            <span> {comment.username}</span>
+                                        </p>
+                                    </Comment>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                     <aside>
                         <Button bgColor="#da552f" target="_blank" href={url}>
