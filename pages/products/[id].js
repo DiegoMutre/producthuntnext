@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layouts/Layout";
 import Error404 from "../../components/layouts/404";
-import firebase from "../../firebase";
+import firebase, { FirebaseContext } from "../../firebase";
 import styled from "styled-components";
 import { formatDistanceToNow } from "date-fns";
 import { Field, InputSubmit } from "../../components/ui/Form";
@@ -32,6 +32,8 @@ const Votes = styled.p`
 const Product = () => {
     const [product, setProduct] = useState({});
     const [error, setError] = useState(false);
+
+    const { user } = useContext(FirebaseContext);
 
     const router = useRouter();
     const {
@@ -84,13 +86,20 @@ const Product = () => {
                         </p>
                         <img src={imageUrl} alt={name} />
                         <p>{description}</p>
-                        <h2>Add your comment</h2>
-                        <form>
-                            <Field>
-                                <input type="text" name="message" />
-                            </Field>
-                            <InputSubmit type="submit" value="Add comment" />
-                        </form>
+                        {user && (
+                            <>
+                                <h2>Add your comment</h2>
+                                <form>
+                                    <Field>
+                                        <input type="text" name="message" />
+                                    </Field>
+                                    <InputSubmit
+                                        type="submit"
+                                        value="Add comment"
+                                    />
+                                </form>
+                            </>
+                        )}
                         <CommentHeading>Comments</CommentHeading>
                         {comments.map((comment, i) => (
                             <li key={i}>
@@ -104,8 +113,8 @@ const Product = () => {
                             Visit URL
                         </Button>
                         <div style={{ marginTop: "5rem" }}>
+                            {user && <Button>Vote</Button>}
                             <Votes>{votes} votes</Votes>
-                            <Button>Vote</Button>
                         </div>
                     </aside>
                 </ProductContainer>
