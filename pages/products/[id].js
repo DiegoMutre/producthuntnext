@@ -67,6 +67,8 @@ const Product = () => {
         created,
         imageUrl,
         url,
+        company,
+        creator,
     } = product;
 
     return (
@@ -77,6 +79,9 @@ const Product = () => {
                 <ProductContainer>
                     <div>
                         <p>Posted {formatDistanceToNow(created)} ago</p>
+                        <p>
+                            By {creator.username} from {company}
+                        </p>
                         <img src={imageUrl} alt={name} />
                         <p>{description}</p>
                         <h2>Add your comment</h2>
