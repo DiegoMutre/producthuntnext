@@ -6,6 +6,7 @@ import firebase from "../../firebase";
 import styled from "styled-components";
 import { formatDistanceToNow } from "date-fns";
 import { Field, InputSubmit } from "../../components/ui/Form";
+import Button from "../../components/ui/Button";
 
 const ProductText = styled.h1`
     text-align: center;
@@ -22,6 +23,10 @@ const ProductContainer = styled.div`
 
 const CommentHeading = styled.h2`
     margin: 2rem 0;
+`;
+
+const Votes = styled.p`
+    text-align: center;
 `;
 
 const Product = () => {
@@ -54,7 +59,15 @@ const Product = () => {
         return "Loading...";
     }
 
-    const { comments, description, votes, name, created, imageUrl } = product;
+    const {
+        comments,
+        description,
+        votes,
+        name,
+        created,
+        imageUrl,
+        url,
+    } = product;
 
     return (
         <Layout>
@@ -81,7 +94,15 @@ const Product = () => {
                             </li>
                         ))}
                     </div>
-                    <aside>2</aside>
+                    <aside>
+                        <Button bgColor="#da552f" target="_blank" href={url}>
+                            Visit URL
+                        </Button>
+                        <div style={{ marginTop: "5rem" }}>
+                            <Votes>{votes} votes</Votes>
+                            <Button>Vote</Button>
+                        </div>
+                    </aside>
                 </ProductContainer>
             </div>
         </Layout>
