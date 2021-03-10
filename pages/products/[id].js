@@ -61,6 +61,23 @@ const Product = () => {
         return "Loading...";
     }
 
+    const voteProduct = () => {
+        if (!user) {
+            return router.push("/login");
+        }
+
+        const newTotal = votes + 1;
+
+        // TODO: Avoid duplicated votes
+
+        firebase.db.collection("products").doc(id).update({ votes: newTotal });
+
+        setProduct({
+            ...product,
+            votes: newTotal,
+        });
+    };
+
     const {
         comments,
         description,
@@ -113,7 +130,9 @@ const Product = () => {
                             Visit URL
                         </Button>
                         <div style={{ marginTop: "5rem" }}>
-                            {user && <Button>Vote</Button>}
+                            {user && (
+                                <Button onClick={voteProduct}>Vote</Button>
+                            )}
                             <Votes>{votes} votes</Votes>
                         </div>
                     </aside>
