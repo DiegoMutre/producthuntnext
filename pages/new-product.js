@@ -59,6 +59,7 @@ const NewProduct = () => {
                 id: user.uid,
                 username: user.displayName,
             },
+            voters: [],
         };
 
         firebase.db.collection("products").add(product);
