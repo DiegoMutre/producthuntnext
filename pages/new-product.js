@@ -16,7 +16,6 @@ const NewProductHeading = styled.h1`
 const initialState = {
     name: "",
     company: "",
-    // image: "",
     url: "",
     description: "",
 };
@@ -55,6 +54,10 @@ const NewProduct = () => {
             votes: 0,
             comments: [],
             created: Date.now(),
+            creator: {
+                id: user.uid,
+                username: user.displayName,
+            },
         };
 
         firebase.db.collection("products").add(product);
