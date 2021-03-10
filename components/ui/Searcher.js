@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const Form = styled.form`
     position: relative;
@@ -32,6 +33,8 @@ const ButtonSubmit = styled.button`
 const Searcher = () => {
     const [search, setSearch] = useState("");
 
+    const router = useRouter();
+
     const handleChange = e => {
         setSearch(e.target.value);
     };
@@ -42,6 +45,13 @@ const Searcher = () => {
         if (search.trim() === "") {
             return;
         }
+
+        router.push({
+            pathname: "/search",
+            query: {
+                q: search,
+            },
+        });
     };
 
     return (
