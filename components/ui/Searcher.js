@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -29,9 +30,27 @@ const ButtonSubmit = styled.button`
 `;
 
 const Searcher = () => {
+    const [search, setSearch] = useState("");
+
+    const handleChange = e => {
+        setSearch(e.target.value);
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if (search.trim() === "") {
+            return;
+        }
+    };
+
     return (
-        <Form>
-            <InputText type="text" placeholder="Search Products" />
+        <Form onSubmit={handleSubmit}>
+            <InputText
+                type="text"
+                placeholder="Search Products"
+                onChange={handleChange}
+            />
 
             <ButtonSubmit type="submit"></ButtonSubmit>
         </Form>
