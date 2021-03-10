@@ -4,6 +4,8 @@ import Layout from "../../components/layouts/Layout";
 import Error404 from "../../components/layouts/404";
 import firebase from "../../firebase";
 import styled from "styled-components";
+import { formatDistanceToNow } from "date-fns";
+import { Field, InputSubmit } from "../../components/ui/Form";
 
 const ProductText = styled.h1`
     text-align: center;
@@ -16,6 +18,10 @@ const ProductContainer = styled.div`
         grid-template-columns: 2fr 1fr;
         column-gap: 2rem;
     }
+`;
+
+const CommentHeading = styled.h2`
+    margin: 2rem 0;
 `;
 
 const Product = () => {
@@ -56,7 +62,25 @@ const Product = () => {
             <div className="container">
                 <ProductText>{name}</ProductText>
                 <ProductContainer>
-                    <div>1</div>
+                    <div>
+                        <p>Posted {formatDistanceToNow(created)} ago</p>
+                        <img src={imageUrl} alt={name} />
+                        <p>{description}</p>
+                        <h2>Add your comment</h2>
+                        <form>
+                            <Field>
+                                <input type="text" name="message" />
+                            </Field>
+                            <InputSubmit type="submit" value="Add comment" />
+                        </form>
+                        <CommentHeading>Comments</CommentHeading>
+                        {comments.map((comment, i) => (
+                            <li key={i}>
+                                <p>{comment.name}</p>
+                                <p>Written by {comment.username}</p>
+                            </li>
+                        ))}
+                    </div>
                     <aside>2</aside>
                 </ProductContainer>
             </div>
