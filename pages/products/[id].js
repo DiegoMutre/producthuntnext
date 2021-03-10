@@ -38,6 +38,16 @@ const Comment = styled.li`
     }
 `;
 
+const ProductCreator = styled.p`
+    padding: 0.5rem 2rem;
+    background-color: var(--orange);
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+`;
+
 const Product = () => {
     const [product, setProduct] = useState({});
     const [error, setError] = useState(false);
@@ -83,6 +93,12 @@ const Product = () => {
         creator,
         voters,
     } = product;
+
+    const isCreator = id => {
+        if (creator.id === id) {
+            return true;
+        }
+    };
 
     const voteProduct = () => {
         if (!user) {
@@ -181,6 +197,11 @@ const Product = () => {
                                             Written by
                                             <span> {comment.username}</span>
                                         </p>
+                                        {isCreator(comment.userId) && (
+                                            <ProductCreator>
+                                                Creator
+                                            </ProductCreator>
+                                        )}
                                     </Comment>
                                 ))}
                             </ul>
