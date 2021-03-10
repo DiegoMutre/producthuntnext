@@ -3,6 +3,20 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/layouts/Layout";
 import Error404 from "../../components/layouts/404";
 import firebase from "../../firebase";
+import styled from "styled-components";
+
+const ProductText = styled.h1`
+    text-align: center;
+    margin-top: 5rem;
+`;
+
+const ProductContainer = styled.div`
+    @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        column-gap: 2rem;
+    }
+`;
 
 const Product = () => {
     const [product, setProduct] = useState({});
@@ -30,10 +44,22 @@ const Product = () => {
         }
     }, [id]);
 
+    if (Object.keys(product).length === 0) {
+        return "Loading...";
+    }
+
+    const { comments, description, votes, name, created, imageUrl } = product;
+
     return (
         <Layout>
             <>{error && <Error404 />}</>
-            <h1>From {id}</h1>
+            <div className="container">
+                <ProductText>{name}</ProductText>
+                <ProductContainer>
+                    <div>1</div>
+                    <aside>2</aside>
+                </ProductContainer>
+            </div>
         </Layout>
     );
 };
