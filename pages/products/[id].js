@@ -154,6 +154,33 @@ const Product = () => {
         });
     };
 
+    const canDelete = () => {
+        if (!user) {
+            return;
+        }
+
+        if (creator.id === user.uid) {
+            return true;
+        }
+    };
+
+    const deleteProduct = async () => {
+        if (!user) {
+            return router.push("/login");
+        }
+
+        if (creator.id !== user.uid) {
+            return router.push("/");
+        }
+
+        try {
+            await firebase.db.collection("products").doc(id).delete();
+            router.push("/");
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <Layout>
             <>{error && <Error404 />}</>
@@ -219,6 +246,9 @@ const Product = () => {
                         </div>
                     </aside>
                 </ProductContainer>
+                {canDelete() && (
+                    <Button onClick={deleteProduct}>Delete Product</Button>
+                )}
             </div>
         </Layout>
     );
